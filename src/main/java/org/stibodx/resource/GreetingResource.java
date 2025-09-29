@@ -1,4 +1,4 @@
-package org.stibodx;
+package org.stibodx.resource;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
