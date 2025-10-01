@@ -7,7 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -46,22 +46,9 @@ public class Address extends PanacheEntityBase {
     @NotBlank(message = "Country is required")
     @Column(nullable = false)
     private String country;
-
-    @Column(name = "is_primary")
-    private boolean isPrimary = false;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
     private User user;
-
-    public Address(String street, String city, String state, String postalCode,
-                   String country, boolean isPrimary) {
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.postalCode = postalCode;
-        this.country = country;
-        this.isPrimary = isPrimary;
-    }
 }
