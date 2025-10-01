@@ -14,7 +14,6 @@ import org.stibodx.exception.UserAlreadyExistsException;
 import jakarta.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,22 +99,25 @@ class UserServiceTest {
         @Test
         @DisplayName("Should find user by ID when user exists")
         void shouldFindUserById() {
-            Optional<UserDTO> foundUser = userService.findById(testUserId);
+            UserDTO foundUser = userService.findById(testUserId);
 
-            assertTrue(foundUser.isPresent());
-            assertEquals(testUserId, foundUser.get().getId());
-            assertEquals("Test", foundUser.get().getFirstName());
-            assertEquals("User", foundUser.get().getLastName());
+            assertNotNull(foundUser);
+            assertEquals(testUserId, foundUser.getId());
+            assertEquals("Test", foundUser.getFirstName());
+            assertEquals("User", foundUser.getLastName());
         }
 
         @Test
-        @DisplayName("Should return empty when user ID does not exist")
-        void shouldReturnEmptyWhenUserNotFound() {
+        @DisplayName("Should throw exception when user ID does not exist")
+        void shouldThrowExceptionWhenUserNotFound() {
             UUID nonExistentId = UUID.randomUUID();
 
-            Optional<UserDTO> foundUser = userService.findById(nonExistentId);
-
-            assertFalse(foundUser.isPresent());
+            UserNotFoundException exception = assertThrows(
+                UserNotFoundException.class,
+                () -> userService.findById(nonExistentId)
+            );
+            
+            assertTrue(exception.getMessage().contains(nonExistentId.toString()));
         }
 
         @Test

@@ -1,86 +1,45 @@
-# code-with-quarkus
+# User Management API
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A RESTful API for user management built with Quarkus and PostgreSQL.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Features
 
-## Running the application in dev mode
+- Create, read users
+- Pagination support
+- Email-based user lookup
+- Input validation
+- Exception handling with JSON error responses
 
-You can run your application in dev mode that enables live coding using:
+## API Endpoints
 
-```shell script
+- `POST /users` - Create a new user
+- `GET /users/{id}` - Get user by ID
+- `GET /users` - Get all users with pagination
+- `GET /users/by-email/{email}` - Get user by email
+
+## Quick Start
+
+### Prerequisites
+- Java 17+
+- Docker (for PostgreSQL)
+
+### Run the Application
+```bash
 ./gradlew quarkusDev
 ```
+The API will be available at `http://localhost:8080`
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+### API Documentation
+- Swagger UI: `http://localhost:8080/q/swagger-ui`
+- OpenAPI spec: `http://localhost:8080/q/openapi`
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./gradlew build
+### Run Tests
+```bash
+./gradlew test
 ```
 
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
+### Database
+The application uses PostgreSQL with Quarkus Dev Services - Docker will automatically start a PostgreSQL container during development.
 
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./gradlew build -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./build/code-with-quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- REST JSON-B ([guide](https://quarkus.io/guides/rest#json-serialisation)): JSON-B serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- SmallRye Health ([guide](https://quarkus.io/guides/smallrye-health)): Monitor service health
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-
-### SmallRye Health
-
-Monitor your application's health using SmallRye Health
-
-[Related guide section...](https://quarkus.io/guides/smallrye-health)
+## Testing
+Import the `User_API_Comprehensive_Tests.postman_collection.json` file into Postman for API testing.

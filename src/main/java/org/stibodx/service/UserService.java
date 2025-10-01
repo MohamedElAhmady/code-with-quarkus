@@ -34,9 +34,10 @@ public class UserService {
         return userMapper.toDTO(user);
     }
 
-    public Optional<UserDTO> findById(UUID id) {
+    public UserDTO findById(UUID id) {
         Optional<User> user = Optional.ofNullable(User.findById(id));
-        return user.map(userMapper::toDTO);
+        return user.map(userMapper::toDTO)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
     public List<UserDTO> findAll() {

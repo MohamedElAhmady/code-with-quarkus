@@ -17,7 +17,6 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.util.Optional;
 import java.util.UUID;
 
 @Path("/users")
@@ -221,14 +220,8 @@ public class UserResource {
             schema = @Schema(type = SchemaType.STRING, format = "uuid")
         )
         @PathParam("id") UUID id) {
-        Optional<UserDTO> user = userService.findById(id);
-        if (user.isPresent()) {
-            return Response.ok(user.get()).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("User not found with id: " + id)
-                    .build();
-        }
+        UserDTO user = userService.findById(id);
+        return Response.ok(user).build();
     }
 
     @GET
